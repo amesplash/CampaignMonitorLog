@@ -1,0 +1,8 @@
+vendor/
+composer.lock
+phpunit.xml
+phpcs.xml
+clover.xml
+phpstan.neon
+*.cache
+winry

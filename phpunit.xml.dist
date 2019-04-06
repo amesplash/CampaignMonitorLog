@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/|version|/phpunit.xsd"
+    colors="true"
+    failOnRisky="true"
+    failOnWarning="true"
+    backupGlobals="false"
+    processIsolation="false"
+    bootstrap="vendor/autoload.php"
+    backupStaticAttributes="false"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true">
+
+    <testsuites>
+        <testsuite name="Campaign Monitor Log Suite">
+            <directory suffix="Test.php">./test</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
+
+    <php>
+        <env name="APP_ENV" value="testing"/>
+    </php>
+</phpunit>

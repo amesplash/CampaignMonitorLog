@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset name="Campaign Monitor Log">
+    <description>The coding standard for Campaign Monitor Log</description>
+    <arg value="p" />
+
+    <config name="ignore_warnings_on_exit" value="1" />
+    <config name="ignore_errors_on_exit" value="1" />
+    <exclude-pattern>tests/*</exclude-pattern>
+
+    <arg name="colors" />
+    <arg value="s" />
+
+    <!-- Use the PSR2 Standard-->
+    <rule ref="PSR1" />
+    <rule ref="PSR2" />
+    <rule ref="PSR12" />
+</ruleset>
