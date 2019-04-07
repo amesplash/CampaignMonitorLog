@@ -1,6 +1,6 @@
 # Campaign Monitor PSR-3 Log Decorator
 
-[![Build Status](https://travis-ci.org/amesplash/CampaignMonitorLog.svg?branch=master)](https://travis-ci.org/amesplash/CampaignMonitorLog)
+[![Build Status](https://travis-ci.com/amesplash/CampaignMonitorLog.svg?branch=master)](https://travis-ci.com/amesplash/CampaignMonitorLog)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/amesplash/CampaignMonitorLog/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/amesplash/CampaignMonitorLog/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/amesplash/CampaignMonitorLog/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/amesplash/CampaignMonitorLog/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/amesplash/campaignmonitor-log/v/stable)](https://packagist.org/packages/amesplash/campaignmonitor-log)
@@ -15,7 +15,7 @@ decorator for Campaign Monitor.
 $ composer require amesplash/campaignmonitor-log
 ```
 
-If not already available this will also install `campaignmonitor/createsend-php`.
+If not already available the above command will also install `campaignmonitor/createsend-php`.
 
 ## Usage
 
@@ -31,6 +31,7 @@ namespace App;
 
 use CS_REST_Campaigns;
 use Psr\Log\LoggerInterface;
+use Psr\Container\ContainerInterface;
 use Amesplash\CampaignMonitorLog\LogDecorator;
 
 final class MyCampaignMonitorCampaignFactory
@@ -40,15 +41,19 @@ final class MyCampaignMonitorCampaignFactory
         $params = $container->get('params');
         $psr3Logger = $container->get('monolog or any other PSR 3 Logger');
 
-        $logDecorator = new LogDecorator($psr3Logger);
+        $defaultContext = [
+            'Campaign' => 'Functional Dev',
+        ];
+
+        $logDecorator = new LogDecorator($psr3Logger, $defaultContext);
 
         return new CS_REST_Campaigns(
             $params->get('campaignmonitor.campaign_id'),
             ['api_key' => $params->get('campaignmonitor.api_key')],
             'https',
-            CS_REST_LOG_VERBOSE, // As Defined in CS_REST_Log
+            CS_REST_LOG_VERBOSE,
             'api.createsend.com',
-            $logDecorator // LogDecorator
+            $logDecorator
         );
     }
 }
@@ -56,7 +61,7 @@ final class MyCampaignMonitorCampaignFactory
 
 ### Log Levels
 
-This library maps the camapign monitor log levels defined in `vendor/campaignmonitor/class/log.php` as follows
+This library maps the Camapign Monitor log levels defined in `vendor/campaignmonitor/class/log.php` as follows:
 
 | Campaign Monitor Log Level | PSR Log Level      |
 | -------------------------- | ------------------ |
